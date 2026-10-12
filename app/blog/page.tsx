@@ -41,39 +41,47 @@ export default async function BlogPage() {
           <p className="text-gray-500">No published posts yet.</p>
         ) : (
           <div className="grid gap-8">
-            {posts.map((post) => (
-              <article
-                key={post.id}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition"
-              >
-                {post.cover_image && (
-                  <Link href={`/blog/${post.slug}`}>
-                    <img
-                      src={post.cover_image}
-                      alt={post.title}
-                      className="w-full h-56 object-cover"
-                    />
-                  </Link>
-                )}
-                <div className="p-6">
-                  <Link href={`/blog/${post.slug}`}>
-                    <h2 className="text-2xl font-semibold text-gray-900 hover:underline">
-                      {post.title}
-                    </h2>
-                  </Link>
-                  <p className="text-gray-500 mt-2 line-clamp-2">
-                    {post.excerpt || 'No excerpt available.'}
-                  </p>
-                  <div className="flex items-center gap-3 mt-4 text-sm text-gray-400">
-                    <span>{post.profiles?.full_name || 'Anonymous'}</span>
-                    <span>•</span>
-                    <time>
-                      {new Date(post.published_at || post.created_at).toLocaleDateString()}
-                    </time>
+            {posts.map((post) => {
+              // Fix: profiles comes as an array
+              const authorName =
+                Array.isArray(post.profiles)
+                  ? post.profiles[0]?.full_name
+                  : (post.profiles as any)?.full_name
+
+              return (
+                <article
+                  key={post.id}
+                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition"
+                >
+                  {post.cover_image && (
+                    <Link href={`/blog/${post.slug}`}>
+                      <img
+                        src={post.cover_image}
+                        alt={post.title}
+                        className="w-full h-56 object-cover"
+                      />
+                    </Link>
+                  )}
+                  <div className="p-6">
+                    <Link href={`/blog/${post.slug}`}>
+                      <h2 className="text-2xl font-semibold text-gray-900 hover:underline">
+                        {post.title}
+                      </h2>
+                    </Link>
+                    <p className="text-gray-500 mt-2 line-clamp-2">
+                      {post.excerpt || 'No excerpt available.'}
+                    </p>
+                    <div className="flex items-center gap-3 mt-4 text-sm text-gray-400">
+                      <span>{authorName || 'Anonymous'}</span>
+                      <span>•</span>
+                      <time>
+                        {new Date(post.published_at || post.created_at).toLocaleDateString()}
+                      </time>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              )
+            })}
           </div>
         )}
       </main>

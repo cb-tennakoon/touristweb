@@ -9,13 +9,13 @@ import Link from 'next/link'
 /* ------------------------------------------------------------------ */
 /*  EDIT THESE FOR YOUR CUSTOMER                                       */
 /* ------------------------------------------------------------------ */
-const SITE_NAME = 'My Blog' // shown above the form
+const SITE_NAME = 'TouristWeb'
 const SITE_TAGLINE = 'Your personal space to write and publish.'
 
 // Optional: only this email may register (leave '' to allow any email).
 // NOTE: this is a client-side check only. To truly lock registration,
 // also disable public sign-ups in Supabase (Auth > Providers > Email).
-const ALLOWED_EMAIL = ''
+const ALLOWED_EMAIL: string = ''
 /* ------------------------------------------------------------------ */
 
 const display = Bricolage_Grotesque({
@@ -245,7 +245,7 @@ export default function SignUpPage() {
       />
 
       <main className="relative w-full max-w-md">
-        {/* Owner monogram: fills in with the person's initials as they type */}
+        {/* Owner monogram */}
         <div className="mb-6 flex flex-col items-center text-center">
           <span
             className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1B1F4B] font-[family-name:var(--font-display)] text-2xl font-semibold text-white shadow-lg shadow-[#1B1F4B]/25"
